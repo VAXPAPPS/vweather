@@ -1,18 +1,49 @@
-# venom
+# 🌩️ vWeather (Venom Weather Pro)
 
-A new Flutter project.
+**vWeather** is a high-performance, professional-grade weather dashboard built for Linux using Flutter. It features a stunning glassmorphic UI, cinematic animations, and deep integration with the Venom desktop environment ecosystem.
 
-## Getting Started
+## ✨ Key Features
 
-This project is a starting point for a Flutter application.
+### 🎨 Cinematic User Interface
+*   **Glassmorphism**: Advanced transparent panels and blur effects that blend seamlessly with your desktop.
+*   **Dynamic Animations**: Smooth, cinematic entry animations for all elements.
+*   **Interactive Charts**: Beautiful spline charts for hourly temperature trends.
 
-A few resources to get you started if this is your first Flutter project:
+### 🌍 Smart Location Services
+*   **Auto-Detection**: Automatically detects your location on startup using:
+    *   **System Timezone** (Linux Native)
+    *   **IP Geolocation** (Fallback)
+*   **Advanced Search**: Instantly search for cities globally with "City, Country" precision.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 📊 Rich Weather Data
+Powered by the [Open-Meteo API](https://open-meteo.com/) (No API Key required!):
+*   **Real-time Conditions**: Temperature, Feels Like, Weather Code.
+*   **Detailed Metrics**: UV Index, Humidity, Wind Speed, Visibility, Sunset Time.
+*   **Forecasts**:
+    *   24-Hour Hourly Trend Line.
+    *   7-Day Daily Forecast.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# Vaxp-Template
-# vweather
+### 🐧 Linux Native Integration
+*   **System Theming**: fully respects the `settings.vaxp` configuration for background colors and text styles.
+*   **Window Controls**: Custom-drawn, integrated window controls (Minimize, Maximize, Close).
+
+## .🛠️ Tech Stack using Vaxp Template
+*   **Framework**: Flutter (Linux Desktop)
+*   **State Management**: `flutter_bloc` (Clean Architecture)
+*   **Data**: `http` (Open-Meteo)
+*   **UI Components**: `flutter_animate`, `fl_chart`, `venom_config`
+
+## 🚀 Getting Started
+
+1.  **Clone the repository**
+2.  **Install dependencies**:
+    ```bash
+    flutter pub get
+    ```
+3.  **Run on Linux**:
+    ```bash
+    flutter run -d linux
+    ```
+
+## 📝 License
+Proprietary / Vaxp Team.
