@@ -1,4 +1,4 @@
-# 🌩️ vWeather (Venom Weather Pro)
+# 🌩️ vWeather (Vaxp Weather)
 
 **vWeather** is a high-performance, professional-grade weather dashboard built for Linux using Flutter. It features a stunning glassmorphic UI, cinematic animations, and deep integration with the Venom desktop environment ecosystem.
 
