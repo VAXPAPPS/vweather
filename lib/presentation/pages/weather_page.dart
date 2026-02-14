@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:vweather/core/venom_layout.dart';
 import 'package:vweather/core/colors/vaxp_colors.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:vweather/core/theme/vaxp_theme.dart'; // Not needed if VenomGlassCard uses it internally, but good to have
 import '../bloc/weather_bloc.dart';
 import '../widgets/search_overlay.dart';
@@ -67,8 +68,15 @@ class _WeatherPageState extends State<WeatherPage> {
     return VenomScaffold(
         
       title: "Venom Weather Pro",
-      body: BlocBuilder<WeatherBloc, WeatherState>(
-        builder: (context, state) {
+      body: BlocListener<WeatherBloc, WeatherState>(
+        listener: (context, state) async {
+          if (state is WeatherLoaded) {
+            final prefs = await SharedPreferences.getInstance();
+            await prefs.setString('saved_city', state.weather.cityName);
+          }
+        },
+        child: BlocBuilder<WeatherBloc, WeatherState>(
+          builder: (context, state) {
           if (state is WeatherLoading) {
             return const Center(child: CircularProgressIndicator(color: Colors.white));
           } else if (state is WeatherLoaded) {
@@ -286,6 +294,7 @@ class _WeatherPageState extends State<WeatherPage> {
           }
           return const SizedBox.shrink();
         },
+        ),
       ),
     );
   }

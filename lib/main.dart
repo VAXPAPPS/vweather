@@ -16,6 +16,8 @@ import 'presentation/bloc/weather_bloc.dart';
 import 'presentation/pages/weather_page.dart';
 import 'core/theme/vaxp_theme.dart'; // Ensure theme is available if needed implicitly by widgets
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await VenomConfig().init();
@@ -33,11 +35,23 @@ Future<void> main() async {
     await windowManager.focus();
   });
 
-  // 1. Initialize Default Location (Auto-Detect)
-  // Default to London if detection fails
-  String defaultCity = await _determineDefaultCity();
+  // 1. Initialize Location
+  // Check for saved location first
+  final prefs = await SharedPreferences.getInstance();
+  String? savedCity = prefs.getString('saved_city');
+  String cityToLoad;
+
+  if (savedCity != null && savedCity.isNotEmpty) {
+    debugPrint("Loaded saved city: $savedCity");
+    cityToLoad = savedCity;
+  } else {
+    debugPrint("No saved city found. Auto-detecting...");
+    cityToLoad = await _determineDefaultCity();
+    // Save the auto-detected city so we don't auto-detect next time
+    await prefs.setString('saved_city', cityToLoad);
+  }
   
-  runApp(VenomApp(defaultCity: defaultCity));
+  runApp(VenomApp(defaultCity: cityToLoad));
 }
 
 Future<String> _determineDefaultCity() async {
