@@ -34,9 +34,9 @@ class _SearchOverlayState extends State<SearchOverlay> {
                 style: TextStyle(color: VaxpColors.defaultText),
                 decoration: InputDecoration(
                   hintText: "Enter city name...",
-                  hintStyle: TextStyle(color: VaxpColors.defaultText.withOpacity(0.5)),
+                  hintStyle: TextStyle(color: VaxpColors.defaultText.withValues(alpha: 0.5)),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: VaxpColors.defaultText.withOpacity(0.3)),
+                    borderSide: BorderSide(color: VaxpColors.defaultText.withValues(alpha: 0.3)),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(color: VaxpColors.primary),

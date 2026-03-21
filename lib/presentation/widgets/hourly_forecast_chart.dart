@@ -45,7 +45,7 @@ class HourlyForecastChart extends StatelessWidget {
                   show: true,
                   drawVerticalLine: false,
                   getDrawingHorizontalLine: (value) => FlLine(
-                    color: Colors.white.withOpacity(0.05),
+                    color: Colors.white.withValues(alpha: 0.05),
                     strokeWidth: 1,
                   ),
                 ),
@@ -65,7 +65,7 @@ class HourlyForecastChart extends StatelessWidget {
                           // Better to parse the full time if available, but for now this works as the label
                           return Text(
                             hourlyData[index].cityName,
-                            style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 10),
+                            style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10),
                           );
                         }
                         return const Text('');
@@ -80,7 +80,7 @@ class HourlyForecastChart extends StatelessWidget {
                       getTitlesWidget: (value, meta) {
                         return Text(
                           '${value.toInt()}°',
-                          style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 10),
+                          style: TextStyle(color: Colors.white.withValues(alpha: 0.5), fontSize: 10),
                         );
                       },
                     ),
@@ -107,8 +107,8 @@ class HourlyForecastChart extends StatelessWidget {
                       show: true,
                       gradient: LinearGradient(
                         colors: [
-                          const Color(0xFF23B6E6).withOpacity(0.2),
-                          const Color(0xFF02D39A).withOpacity(0.05),
+                          const Color(0xFF23B6E6).withValues(alpha: 0.2),
+                          const Color(0xFF02D39A).withValues(alpha: 0.05),
                         ],
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,

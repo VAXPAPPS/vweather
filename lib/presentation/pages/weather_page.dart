@@ -114,7 +114,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                style: TextStyle(
                                  fontSize: 18, 
                                  fontWeight: FontWeight.w300, 
-                                 color: Colors.white.withOpacity(0.8)
+                                 color: Colors.white.withValues(alpha: 0.8)
                                )
                              ).animate().fadeIn(delay: 200.ms),
 
@@ -229,6 +229,7 @@ class _WeatherPageState extends State<WeatherPage> {
                                    MetricTile(
                                      icon: Icons.visibility, 
                                      label: "Visibility", 
+                                     // ignore: unnecessary_string_interpolations
                                      value: "${(weather.visibility / 1000).toStringAsFixed(1)}", 
                                      unit: "km"
                                    ),
