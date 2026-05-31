@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=vweather
+Comment=Flutter Application - vweather
+Exec=/usr/bin/vweather
+Icon=/usr/share/icons/hicolor/256x256/apps/vweather.png
+Terminal=false
+Categories=Utility;Development;
