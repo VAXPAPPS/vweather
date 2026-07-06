@@ -16,4 +16,9 @@ class WeatherRepository implements IWeatherRepository {
   Future<List<Weather>> getForecast(String cityName) async {
     return await remoteDataSource.getForecast(cityName);
   }
+
+  @override
+  Future<List<String>> searchCities(String query) async {
+    return await remoteDataSource.searchCities(query);
+  }
 }

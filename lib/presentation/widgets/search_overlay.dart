@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vweather/core/theme/vaxp_theme.dart';
 import 'package:vweather/core/colors/vaxp_colors.dart';
 import '../bloc/weather_bloc.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import '../../domain/repositories/i_weather_repository.dart';
 
 class SearchOverlay extends StatefulWidget {
   const SearchOverlay({super.key});
@@ -29,24 +31,52 @@ class _SearchOverlayState extends State<SearchOverlay> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 20),
-              TextField(
+              TypeAheadField<String>(
                 controller: _controller,
-                style: TextStyle(color: VaxpColors.defaultText),
-                decoration: InputDecoration(
-                  hintText: "Enter city name...",
-                  hintStyle: TextStyle(color: VaxpColors.defaultText.withValues(alpha: 0.5)),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: VaxpColors.defaultText.withValues(alpha: 0.3)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: VaxpColors.primary),
-                  ),
-                ),
-                onSubmitted: (value) {
-                  if (value.isNotEmpty) {
-                    context.read<WeatherBloc>().add(WeatherRequested(city: value));
-                    Navigator.of(context).pop();
-                  }
+                builder: (context, controller, focusNode) {
+                  return TextField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    style: TextStyle(color: VaxpColors.defaultText),
+                    decoration: InputDecoration(
+                      hintText: "Enter city name...",
+                      hintStyle: TextStyle(color: VaxpColors.defaultText.withValues(alpha: 0.5)),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: VaxpColors.defaultText.withValues(alpha: 0.3)),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: VaxpColors.primary),
+                      ),
+                    ),
+                    onSubmitted: (value) {
+                      if (value.isNotEmpty) {
+                        context.read<WeatherBloc>().add(WeatherRequested(city: value));
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  );
+                },
+                suggestionsCallback: (pattern) async {
+                  if (pattern.isEmpty) return [];
+                  final repository = context.read<IWeatherRepository>();
+                  return await repository.searchCities(pattern);
+                },
+                itemBuilder: (context, suggestion) {
+                  return ListTile(
+                    title: Text(suggestion, style: TextStyle(color: VaxpColors.defaultText)),
+                    tileColor: VaxpColors.glassSurface,
+                  );
+                },
+                onSelected: (suggestion) {
+                  _controller.text = suggestion;
+                  context.read<WeatherBloc>().add(WeatherRequested(city: suggestion));
+                  Navigator.of(context).pop();
+                },
+                emptyBuilder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text('No cities found.', style: TextStyle(color: VaxpColors.defaultText.withValues(alpha: 0.5))),
+                  );
                 },
               ),
               const SizedBox(height: 20),

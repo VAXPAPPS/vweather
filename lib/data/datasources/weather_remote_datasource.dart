@@ -76,4 +76,24 @@ class WeatherRemoteDataSource {
     final weatherJson = json.decode(weatherResponse.body);
     return WeatherModel.fromDailyJson(weatherJson, cityName);
   }
+
+  Future<List<String>> searchCities(String query) async {
+    if (query.isEmpty) return [];
+    final geoUri = Uri.parse('$_geocodingUrl/search?name=$query&count=5&language=en&format=json');
+    try {
+      final response = await client.get(geoUri);
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data.containsKey('results') && data['results'] != null) {
+          final results = data['results'] as List;
+          return results.map((e) {
+            final name = e['name'] as String;
+            final country = e['country'] as String? ?? '';
+            return country.isEmpty ? name : '$name, $country';
+          }).toList();
+        }
+      }
+    } catch (_) {}
+    return [];
+  }
 }
